@@ -15,7 +15,8 @@ namespace DeviceAppTest
         [InlineData("SetInterval", "10", 501)]
         public void SetTelemetryInterval_ShouldChangeTelemetryInterval(string methodName, string payload, int statusCode)
         {
-            deviceClient.SetMethodHandlerAsync(methodName, DeviceServices.SetTelemetryInterval, null).Wait();
+            var response = DeviceServices.SetTelemetryInterval(new MethodRequest(methodName), null).GetAwaiter().GetResult();
+            Assert.Equal(statusCode, response.Status);
            
         }
     }
